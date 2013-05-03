@@ -13,7 +13,7 @@ public class MainActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		
-		Intent intent = new Intent(this, ExtratoActivity2.class);
+		Intent intent = new Intent(this, ExtratoActivity.class);
 		
 		startActivity(intent);
 	}
