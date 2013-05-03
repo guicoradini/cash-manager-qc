@@ -48,6 +48,7 @@ public class ExtratoAdapter extends BaseAdapter{
 			itemHolder = new ItemSuporte(); 
 
 			itemHolder.txtTitle = ((TextView) view.findViewById(R.id.text)); 
+			itemHolder.txtValor = ((TextView) view.findViewById(R.id.valor)); 
 			itemHolder.imgIcon = ((ImageView) view.findViewById(R.id.imagemview)); 
 			itemHolder.imgDate = ((ImageView) view.findViewById(R.id.imageDate));
 
@@ -66,6 +67,7 @@ public class ExtratoAdapter extends BaseAdapter{
 		itemHolder.txtTitle.setText(item.getTexto()); 
 		itemHolder.imgDate.setImageResource(item.getDateRid());
 		itemHolder.imgIcon.setImageResource(item.getIconeRid()); 
+		itemHolder.txtValor.setText(String.valueOf(item.getValor())); 
 
 		//retorna a view com as informações 		
 		return view; 
@@ -75,6 +77,7 @@ public class ExtratoAdapter extends BaseAdapter{
 		ImageView imgIcon; 
 		ImageView imgDate;
 		TextView txtTitle; 
+		TextView txtValor; 
 	} 
 
 }
