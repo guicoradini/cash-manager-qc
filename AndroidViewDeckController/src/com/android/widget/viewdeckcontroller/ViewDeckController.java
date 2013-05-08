@@ -343,9 +343,9 @@ public class ViewDeckController extends ViewGroup {
         populate();
         int destX = (getWidth() + mPageMargin) * item;
         if (item < 1) {
-        	destX += 45;
+        	destX += 180;
         } else if (item > 1) {
-        	destX -= 45;
+        	destX -= 180;
         }
         if (smoothScroll) {
             smoothScrollTo(destX, 0, velocity);
