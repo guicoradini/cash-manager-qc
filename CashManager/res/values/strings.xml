@@ -7,5 +7,6 @@
     <string name="botao_add">Adicionar</string>
     <string name="botao_excluir">Excluir</string>
     <string name="title_activity_add_item">AddItemActivity</string>
+    <string name="menu_settings">Settings</string>
 
 </resources>
