@@ -37,9 +37,7 @@ public class ExtratoActivity extends Activity {
 	private View layoutPrincipal;
 
 	private ListView listViewMenu;
-	private ListView listview;
-
-	private String itensMenu[]={"Android","iPhone","BlackBerry","AndroidPeople"};
+	private ListView listview;	
 
 	private ExtratoAdapter adapter;
 
@@ -105,7 +103,7 @@ public class ExtratoActivity extends Activity {
 			listViewMenu=(ListView)findViewById(R.id.listViewMenu);
 			fakeLayout = (View)findViewById(R.id.fake_layout);
 
-			listViewMenu.setAdapter(new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1 , itensMenu));
+			listViewMenu.setAdapter(new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1 , getResources().getStringArray(R.array.menuOptions)));
 			
 			listview.setOnItemClickListener(new OnItemClickListener() {
 
