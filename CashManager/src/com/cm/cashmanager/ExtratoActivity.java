@@ -2,6 +2,7 @@ package com.cm.cashmanager;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.locks.ReentrantLock;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -26,8 +27,13 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 public class ExtratoActivity extends Activity {
+
+	private ReentrantLock lock;
+
+	private boolean animacaoEmAndamento;
 
 	private Button buttonMenu;  
 	private Button buttonAdd;
@@ -35,6 +41,8 @@ public class ExtratoActivity extends Activity {
 
 	private View layoutMenu;
 	private View layoutPrincipal;
+
+	private TextView itensVazios;
 
 	private ListView listViewMenu;
 	private ListView listview;	
@@ -67,6 +75,10 @@ public class ExtratoActivity extends Activity {
 
 		setContentView(R.layout.extrato); 
 
+		lock = new ReentrantLock();
+
+		animacaoEmAndamento = false;
+
 		buttonMenu = (Button)findViewById(R.id.buttonMenu);  
 		buttonAdd = (Button)findViewById(R.id.ButtonAdd);  
 		buttonExcluir = (Button)findViewById(R.id.ButtonExcluir);		
@@ -74,16 +86,19 @@ public class ExtratoActivity extends Activity {
 		layoutMenu = (View) findViewById(R.id.layoutMenu);  
 		layoutPrincipal = (View) findViewById(R.id.layoutPrincipal);
 
+		itensVazios = (TextView) findViewById(R.id.itensvazios);
+
 		/** menu principal*/
 		listview = (ListView) findViewById(R.id.listPrincipal);
 
 		final GestureDetector gestureDetector = new GestureDetector(new MyGestureDetector());
 		View.OnTouchListener gestureListener = new View.OnTouchListener() {
-			public boolean onTouch(View v, MotionEvent event) {
+			public boolean onTouch(View v, MotionEvent event) {				
 				return gestureDetector.onTouchEvent(event); 
 			}};
 
 			listview.setOnTouchListener(gestureListener);
+			itensVazios.setOnTouchListener(gestureListener);
 
 			ItemExtrato carro = new ItemExtrato("Carro", R.drawable.car, R.drawable.number1, 500d);
 			ItemExtrato ingles = new ItemExtrato("Ingles", R.drawable.car, R.drawable.number2, 400d);
@@ -108,13 +123,27 @@ public class ExtratoActivity extends Activity {
 
 				@Override
 				public void onItemClick(AdapterView<?> arg0, View arg1,	int arg2, long arg3) {
-
+					Log.d("LUIS", "clicou");
 					if(menuOpen == true){
 
-						animSlideLeft();
+						onLeftSwipe();
 					}					
 				}
-			});			
+			});	
+
+			itensVazios.setOnClickListener(new View.OnClickListener() {  
+
+				@Override  
+				public void onClick(View v) { 
+
+					Log.d("LUIS", "clicou");
+					if(menuOpen == true){
+
+						onLeftSwipe();
+
+					}	
+				}  
+			}); 
 
 
 			/** usado para realizar a animação*/
@@ -157,9 +186,9 @@ public class ExtratoActivity extends Activity {
 				@Override  
 				public void onClick(View v) { 
 					if(menuOpen == false){    
-						animSlideRight();
+						onRightSwipe();
 					} else if (menuOpen == true) {
-						animSlideLeft();
+						onLeftSwipe();
 					}
 				}  
 			});  
@@ -172,51 +201,77 @@ public class ExtratoActivity extends Activity {
 					layoutPrincipal.setEnabled(false);
 				}           
 				@Override
-				public void onAnimationRepeat(Animation animation) {
-					// TODO Auto-generated method stub
+				public void onAnimationRepeat(Animation animation) {					
 
 				}               
 				@Override
 				public void onAnimationEnd(Animation animation) {
+
 					if(menuOpen == true) {
-						Log.d("", "Open");              
+
+						Log.d("LUIS", "Fechou");              
 						layoutPrincipal.layout(oldLeft, oldTop, oldLeft + layoutPrincipal.getMeasuredWidth(), oldTop + layoutPrincipal.getMeasuredHeight() );
-						menuOpen = false;
+						menuOpen = false;						
 						buttonMenu.setClickable(true);
 						layoutPrincipal.setEnabled(true);
+
+						animacaoEmAndamento = false;
+
 					} else if(menuOpen == false) {
-						Log.d("","FALSE");
+
+						Log.d("LUIS","Abriu");
 						layoutPrincipal.layout(newleft, newTop, newleft + layoutPrincipal.getMeasuredWidth(), newTop + layoutPrincipal.getMeasuredHeight() );                    
 						layoutPrincipal.setEnabled(true);
 						menuOpen = true;
 						buttonMenu.setClickable(true);
+
+						animacaoEmAndamento = false;
+
 					}
 				}
 			};
 	}
 
-	public void animSlideRight(){
+	public synchronized void animSlideRight(){
 
-		fakeLayout.setVisibility(View.VISIBLE);
-		newleft = layoutPrincipal.getLeft() + animToPostion;
-		newTop = layoutPrincipal.getTop();    
-		TranslateAnimation slideRight = new TranslateAnimation(0,newleft,0,0);
-		slideRight.setDuration(500);   
-		slideRight.setFillEnabled(true);   
-		slideRight.setAnimationListener(AL);    
-		layoutPrincipal.startAnimation(slideRight);           
+		lock.lock();
+
+		if(!animacaoEmAndamento){
+
+			animacaoEmAndamento = true;
+
+			fakeLayout.setVisibility(View.VISIBLE);
+			newleft = layoutPrincipal.getLeft() + animToPostion;
+			newTop = layoutPrincipal.getTop();    
+			TranslateAnimation slideRight = new TranslateAnimation(0,newleft,0,0);
+			slideRight.setDuration(500);   
+			slideRight.setFillEnabled(true);   
+			slideRight.setAnimationListener(AL);    
+			layoutPrincipal.startAnimation(slideRight);           
+		}
+
+		lock.unlock();
 	}
 
-	public void animSlideLeft() {
+	public synchronized void animSlideLeft() {
 
-		fakeLayout.setVisibility(View.GONE);
-		oldLeft = layoutPrincipal.getLeft() - animToPostion;
-		oldTop = layoutPrincipal.getTop();        
-		TranslateAnimation slideLeft = new TranslateAnimation(newleft,oldLeft,0,0);
-		slideLeft.setDuration(500);   
-		slideLeft.setFillEnabled(true);   
-		slideLeft.setAnimationListener(AL);    
-		layoutPrincipal.startAnimation(slideLeft);                
+		lock.lock();
+
+		if(!animacaoEmAndamento){
+
+			animacaoEmAndamento = true;
+
+			fakeLayout.setVisibility(View.GONE);
+			oldLeft = layoutPrincipal.getLeft() - animToPostion;
+			oldTop = layoutPrincipal.getTop();        
+			TranslateAnimation slideLeft = new TranslateAnimation(newleft,oldLeft,0,0);
+			slideLeft.setDuration(500);   
+			slideLeft.setFillEnabled(true);   
+			slideLeft.setAnimationListener(AL);    
+			layoutPrincipal.startAnimation(slideLeft);    
+		}
+
+		lock.unlock();
 	}
 
 	@Override
@@ -295,17 +350,13 @@ public class ExtratoActivity extends Activity {
 
 	private void onLeftSwipe() {
 
-		if(menuOpen == true){    
-			animSlideLeft();
-		} 
+		animSlideLeft();
 
 	}
 
 	private void onRightSwipe() {		
 
-		if(menuOpen == false){    
-			animSlideRight();
-		} 
+		animSlideRight();
 
 	}
 
@@ -337,9 +388,17 @@ public class ExtratoActivity extends Activity {
 				else{
 
 					if (diffX > SWIPE_MIN_DISTANCE && Math.abs(velocityX) > SWIPE_THRESHOLD_VELOCITY) {
-						ExtratoActivity.this.onLeftSwipe();						
+
+						if (menuOpen == true) {							
+							ExtratoActivity.this.onLeftSwipe();		
+						}
+
 					} else if (-diffX > SWIPE_MIN_DISTANCE && Math.abs(velocityX) > SWIPE_THRESHOLD_VELOCITY) {
-						ExtratoActivity.this.onRightSwipe();
+
+						if(menuOpen == false){    
+							ExtratoActivity.this.onRightSwipe();
+						} 
+
 					}
 				}
 
