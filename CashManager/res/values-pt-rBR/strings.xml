@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">CashManager</string>
+    <string name="action_settings">Configuracoes</string>
+    <string name="add_button">Adicionar</string>
+    <string name="remove_button">Remover</string>
+    <string name="title_activity_add_item">Lançamento</string>
+    <string name="menu_settings">Configuracoes</string>
+    <string name="valor_lancamento_label">Valor</string>
+    <string name="menu_button">Menu</string>
+    
+</resources>
