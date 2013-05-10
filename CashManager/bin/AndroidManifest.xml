@@ -5,7 +5,7 @@
     android:versionName="1.0" >
 
     <uses-sdk
-        android:minSdkVersion="8"
+        android:minSdkVersion="13"
         android:targetSdkVersion="17" />
 
     <application
@@ -31,7 +31,10 @@
         </activity>
         <activity
             android:name="com.cm.cashmanager.AddItemActivity"
-            android:label="@string/title_activity_add_item" >
+            android:label="@string/title_activity_add_item"
+            android:theme="@android:style/Theme.Dialog" >
+        </activity>
+        <activity android:name="com.cm.cashmanager.DatePickerFragment" >
         </activity>
     </application>
 

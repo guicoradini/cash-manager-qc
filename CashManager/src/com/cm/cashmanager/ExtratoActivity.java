@@ -67,10 +67,9 @@ public class ExtratoActivity extends Activity {
 
 		setContentView(R.layout.extrato); 
 
-
 		buttonMenu = (Button)findViewById(R.id.buttonMenu);  
 		buttonAdd = (Button)findViewById(R.id.ButtonAdd);  
-		buttonExcluir = (Button)findViewById(R.id.ButtonExcluir);  
+		buttonExcluir = (Button)findViewById(R.id.ButtonExcluir);		
 
 		layoutMenu = (View) findViewById(R.id.layoutMenu);  
 		layoutPrincipal = (View) findViewById(R.id.layoutPrincipal);
@@ -104,19 +103,19 @@ public class ExtratoActivity extends Activity {
 			fakeLayout = (View)findViewById(R.id.fake_layout);
 
 			listViewMenu.setAdapter(new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1 , getResources().getStringArray(R.array.menuOptions)));
-			
+
 			listview.setOnItemClickListener(new OnItemClickListener() {
 
 				@Override
 				public void onItemClick(AdapterView<?> arg0, View arg1,	int arg2, long arg3) {
-					
+
 					if(menuOpen == true){
-						
+
 						animSlideLeft();
 					}					
 				}
-			});				
-				
+			});			
+
 
 			/** usado para realizar a animação*/
 			display =  getWindowManager().getDefaultDisplay();
@@ -194,7 +193,7 @@ public class ExtratoActivity extends Activity {
 					}
 				}
 			};
-	} 
+	}
 
 	public void animSlideRight(){
 
