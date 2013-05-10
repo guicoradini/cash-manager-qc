@@ -9,8 +9,8 @@
         android:id="@+id/surfaceView1"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent" />
-    
-    <include layout="@layout/menu_left"/>
+
+    <include layout="@layout/menu_left" />
 
     <RelativeLayout
         android:id="@+id/layoutPrincipal"
@@ -37,35 +37,43 @@
 
         <ListView
             android:id="@+id/listPrincipal"
-            android:layout_below="@id/linearLayout1"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/linearLayout1"
             android:divider="#FFECECEC"
             android:dividerHeight="2sp" />
-        
+
+        <TextView
+            android:id="@+id/itensvazios"
+            android:layout_width="match_parent"
+            android:layout_height="fill_parent"
+            android:textIsSelectable="false"
+            android:layout_marginTop="10sp"
+            android:layout_below="@+id/listPrincipal" />
+
         <LinearLayout
-        android:id="@+id/LinearLayout01"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_below="@+id/ListView01" >
-
-        <Button
-            android:id="@+id/ButtonAdd"
+            android:id="@+id/LinearLayout01"
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content"            
-            android:layout_weight="1"
-            android:text="@string/botao_add" >
-        </Button>
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_below="@+id/ListView01" >
 
-        <Button
-            android:id="@+id/ButtonExcluir"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"            
-            android:layout_weight="1"
-            android:text="@string/botao_excluir" >
-        </Button>
-    </LinearLayout>
+            <Button
+                android:id="@+id/ButtonAdd"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/botao_add" >
+            </Button>
+
+            <Button
+                android:id="@+id/ButtonExcluir"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/botao_excluir" >
+            </Button>
+        </LinearLayout>
     </RelativeLayout>
 
 </RelativeLayout>
