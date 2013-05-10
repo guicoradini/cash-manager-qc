@@ -1,74 +1,96 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:orientation="vertical" >
- 
-     
-    <LinearLayout
-        android:id="@+id/linearLayout1"
-        android:orientation="horizontal"
+    android:orientation="vertical"
+    android:stretchColumns="*" >
+
+    <TableRow
+        android:id="@+id/tableLayout1"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content" >
- 
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
+
         <TextView
-            android:id="@+id/tvCodigo"
+            android:id="@+id/labelData"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:gravity="right"
-            android:text="Código :" />
-     
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="5sp"
+            android:text="Data" />
+
         <EditText
-            android:id="@+id/etCodigo"
+            android:id="@+id/valorData"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_width="0dp"
-            android:layout_weight="4"/>
- 
-    </LinearLayout>
- 
-    <LinearLayout
-        android:id="@+id/linearLayout2"
-        android:orientation="horizontal"
+            android:layout_marginRight="5sp"
+            android:gravity="right"
+            android:inputType="date" />
+    </TableRow>
+
+    <TableRow
+        android:id="@+id/tableLayout2"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content" >
- 
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
+
         <TextView
-            android:id="@+id/tvNome"
+            android:id="@+id/labelNome"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:gravity="right"
-            android:text="Nome :" />
-     
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="5sp"
+            android:text="Nome" />
+
         <EditText
-            android:id="@+id/etNome"
+            android:id="@+id/valorNome"
+            android:layout_width="30dp"
             android:layout_height="wrap_content"
-            android:layout_width="0dp"
-            android:layout_weight="4"/>
- 
-    </LinearLayout>
- 
- 
-    <LinearLayout
-        android:id="@+id/linearLayout3"
+            android:layout_marginRight="5sp"
+            android:inputType="text" />
+    </TableRow>
+
+    <TableRow
+        android:id="@+id/tableLayout3"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:id="@+id/labelValor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="5sp"
+            android:text="@string/valor_lancamento_label" />
+
+        <EditText
+            android:id="@+id/valorValor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="5sp"
+            android:inputType="number" />
+    </TableRow>
+
+    <TableRow
+        android:id="@+id/tableLayout4"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:gravity="bottom" >
-         
+
         <Button
             android:id="@+id/btnConfirmar"
-            android:layout_width="0dp"
-            android:layout_weight="1"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="5sp"
             android:text="Confirmar" />
-         
+
         <Button
             android:id="@+id/btnCancelar"
-            android:layout_width="0dp"
-            android:layout_weight="1"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginRight="5sp"
             android:text="Cancelar" />
-    </LinearLayout>
- 
-</LinearLayout>
+    </TableRow>
+
+</TableLayout>
